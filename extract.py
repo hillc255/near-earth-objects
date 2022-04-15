@@ -52,13 +52,13 @@ def load_neos(neo_csv_filename):
     with open(neo_csv_path, 'r') as infile:
         csv_reader = csv.DictReader(infile, delimiter=',')
         for row in csv_reader:
-            #print(row['pdes'],
-            row_neos = (row['pdes'],
-            row['name'],
-            row['diameter'],
-            row['pha'])
-            list_neos.append(row_neos)
-        #print(list_neos)    
+            row_neos = (
+                row['pdes'],
+                row['name'],
+                row['diameter'],
+                row['pha']
+            )
+            list_neos.append(row_neos)    
     
 
     # TODO: Load NEO data from the given CSV file.
