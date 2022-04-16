@@ -41,7 +41,7 @@ def load_neos(neo_csv_filename):
     #use global variable to get path to filename in data directory
     neo_csv_path = data_dir / neo_csv_filename
 
-    #check if csv file exists
+    #verify csv file exists
     if neo_csv_path.exists():
         print(f"File \"{neo_csv_path.absolute()}\" exists")
     else:
@@ -49,8 +49,11 @@ def load_neos(neo_csv_filename):
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
 
     list_neos = []
+    #load and read csv data
     with open(neo_csv_path, 'r') as infile:
         csv_reader = csv.DictReader(infile, delimiter=',')
+        
+        #select specific csv columns
         for row in csv_reader:
             row_neos = (
                 row['pdes'],
@@ -78,18 +81,26 @@ def load_approaches(cad_json_filename):
     
     #use global variable to get path to filename in data directory
     cad_json_path = data_dir / cad_json_filename
+        
+    #verify json file exists
+    if cad_json_path.exists():
+        print(f"File \"{cad_json_path.absolute()}\" exists")
+    else:
+        print("File \"cad.json_path.absolute()}\" does not exist")
+        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), cad_json_filename)
 
+    cad_data = []
     with open(cad_json_path, 'r') as json_data:
-        
-        if cad_json_path.exists():
-            print(f"File \"{cad_json_path.absolute()}\" exists")
-        else:
-            print("File \"cad.json_path.absolute()}\" does not exist")
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), cad_json_filename)
 
-        cad_data = json.load(json_data)
-        
-        #print(cad_data)
+        #load json data
+        data_load = json.load(json_data)
+
+        #iterate through "data" tuples selecting des, cd, dist, v_rel
+        for i in data_load["data"]:
+            cad_tuple = (i[0],i[3],i[4],i[7])
+            
+            #append the selected tuples
+            cad_data.append(cad_tuple)
 
     return cad_data
 
