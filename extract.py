@@ -22,7 +22,6 @@ from os import path
 from models import NearEarthObject, CloseApproach
 
 
-
 #neo_csv_path = pathlib.Path("./data/neos.csv")
 #cad_json_path = pathlib.Path("./data/cad.json")
 
@@ -49,20 +48,21 @@ def load_neos(neo_csv_filename):
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
 
     list_neos = []
+    
     #load and read csv data
     with open(neo_csv_path, 'r') as infile:
         csv_reader = csv.DictReader(infile, delimiter=',')
-        
-        #select specific csv columns
-        for row in csv_reader:
-            row_neos = (
-                row['pdes'],
-                row['name'],
-                row['diameter'],
-                row['pha']
+
+    #select specific csv columns
+        for row in csv_reader: 
+            #create neo object to add to list
+            neo = NearEarthObject(
+                    designation = row['pdes'],
+                    name = row['name'], 
+                    diameter = row['diameter'],
+                    hazardous = row['pha']
             )
-            list_neos.append(row_neos)    
-    
+            list_neos.append(neo)
 
     # TODO: Load NEO data from the given CSV file.
     return list_neos
@@ -97,10 +97,14 @@ def load_approaches(cad_json_filename):
 
         #iterate through "data" tuples selecting des, cd, dist, v_rel
         for i in data_load["data"]:
-            cad_tuple = (i[0],i[3],i[4],i[7])
-            
+            #create close approach object
+            cad = CloseApproach(designation = i[0], 
+                                time = i[3], 
+                                distance = i[4], 
+                                velocity = i[7]
+            )
             #append the selected tuples
-            cad_data.append(cad_tuple)
+            cad_data.append(cad)
 
     return cad_data
 

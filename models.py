@@ -120,6 +120,9 @@ class CloseApproach:
         # Create an attribute for the referenced NEO, originally None.
         self.neo = info.get('neo')
         
+        if not self.neo:
+            self.neo = "None"
+        
         # Add function for time and type for distance nd velocity
         
         if self.time:
