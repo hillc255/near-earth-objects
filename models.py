@@ -62,6 +62,11 @@ class NearEarthObject:
         else:
             self.diameter = float(self.diameter)
 
+        if self.hazardous == 'Y':
+            self.hazardous = bool(True)
+        else:
+            self.hazardous = bool(False)
+
         if not self.name:
             self.name = None
 
@@ -76,7 +81,7 @@ class NearEarthObject:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        if self.hazardous == 'Y':
+        if self.hazardous is True:
             neo_hazard = 'is'
         else:
             neo_hazard = 'is not'
