@@ -63,9 +63,9 @@ class NearEarthObject:
             self.diameter = float(self.diameter)
 
         if self.hazardous == 'Y':
-            self.hazardous = bool(True)
+            self.hazardous = True
         else:
-            self.hazardous = bool(False)
+            self.hazardous = False
 
         if not self.name:
             self.name = None
@@ -124,9 +124,6 @@ class CloseApproach:
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = info.get('neo')
-        
-        if not self.neo:
-            self.neo = "None"
         
         # Add function for time and type for distance nd velocity
         
