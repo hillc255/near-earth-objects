@@ -109,6 +109,42 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
+    
+    #subclass does not have init -  superclass is called with init
+
+
+    # example?
+    # define subclasses:
+    class DateEqualsFilter(AttributeFilter):
+
+        def __init__(self, value):
+            super().__init__(operator.eq, value)
+
+        @classmethod
+        def get(cls, approach):
+            return approach.time.date()
+
+    class StartDateFilter(AttributeFilter):
+        @classmethod
+        def get(cls, approach):
+            return approach.time.start_date()
+
+     class EndDateFilter(AttributeFilter):
+        @classmethod
+        def get(cls, approach):
+            return approach.time.end_date()
+
+     class DistanceMinFilter(AttributeFilter):
+        @classmethod
+        def get(cls, approach):
+            return approach.float.distance_min()
+
+     class DateFilter(AttributeFilter):
+        @classmethod
+        def get(cls, approach):
+            return approach.float.distance_max()
+
+
     return ()
 
 
