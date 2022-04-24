@@ -17,6 +17,7 @@ iterator.
 You'll edit this file in Tasks 3a and 3c.
 """
 import operator
+import itertools
 
 
 class UnsupportedCriterionError(NotImplementedError):
@@ -112,8 +113,6 @@ def create_filters(
     
     #subclass does not have init -  superclass is called with init
 
-
-    # example?
     # define subclasses:
     class DateEqualsFilter(AttributeFilter):
 
@@ -124,26 +123,23 @@ def create_filters(
         def get(cls, approach):
             return approach.time.date()
 
-    class StartDateFilter(AttributeFilter):
+    class StartDateGreaterThenOrEqualsFilter(AttributeFilter):
+        
+        def __init__(self, value):
+            super().__init__(operator.ge, value)
+
         @classmethod
         def get(cls, approach):
             return approach.time.start_date()
 
-     class EndDateFilter(AttributeFilter):
+    class EndDateLessThanOrEqualsFilter(AttributeFilter):
+        
+        def __init__(self, value):
+            super().__init__(operator.le, value)
+
         @classmethod
         def get(cls, approach):
             return approach.time.end_date()
-
-     class DistanceMinFilter(AttributeFilter):
-        @classmethod
-        def get(cls, approach):
-            return approach.float.distance_min()
-
-     class DateFilter(AttributeFilter):
-        @classmethod
-        def get(cls, approach):
-            return approach.float.distance_max()
-
 
     return ()
 
@@ -158,4 +154,24 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     # TODO: Produce at most `n` values from the given iterator.
-    return iterator
+
+    if n == 0 or n is None:
+        return iterator
+    
+    #yield first (at most) 'n' values from iterator
+    #create new iterator with keyword 'yield'
+
+    #i = 0
+    #while(i < n):
+    #    try:
+    #        i+=1
+    #        yield next(iterator)
+    #    except:
+    #        break
+
+    #for index, value in enumerate(iterable):
+        #if index < n:
+            #yield value
+        #else:
+            #break
+    return itertools.islice(iterator, n)
