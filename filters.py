@@ -130,7 +130,7 @@ def create_filters(
 
         @classmethod
         def get(cls, approach):
-            return approach.time.start_date()
+            return approach.time.date()
 
     class EndDateLessThanOrEqualsFilter(AttributeFilter):
         
@@ -139,7 +139,7 @@ def create_filters(
 
         @classmethod
         def get(cls, approach):
-            return approach.time.end_date()
+            return approach.time.date()
 
     return ()
 
