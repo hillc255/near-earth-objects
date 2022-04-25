@@ -73,6 +73,22 @@ class AttributeFilter:
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
+class DateEqualsFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.time.date()
+
+class StartDateGTEqualsFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.time.date()
+
+class EndDateLTEqualsFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.time.date()
+
+
 def create_filters(
         date=None, start_date=None, end_date=None,
         distance_min=None, distance_max=None,
@@ -111,37 +127,22 @@ def create_filters(
     """
     # TODO: Decide how you will represent your filters.
     
-    #subclass does not have init -  superclass is called with init
 
-    # define subclasses:
-    class DateEqualsFilter(AttributeFilter):
+    filter_list = list()
 
-        def __init__(self, value):
-            super().__init__(operator.eq, value)
+    if date is not None:
+        datefilter = DateEqualsFilter(operator.eq, date)
+        filter_list.append(datefilter)
 
-        @classmethod
-        def get(cls, approach):
-            return approach.time.date()
+    if start_date is not None:
+        startdatefilter = StartDateGTEqualsFilter(operator.ge, start_date)
+        filter_list.append(startdatefilter)
 
-    class StartDateGreaterThenOrEqualsFilter(AttributeFilter):
-        
-        def __init__(self, value):
-            super().__init__(operator.ge, value)
-
-        @classmethod
-        def get(cls, approach):
-            return approach.time.date()
-
-    class EndDateLessThanOrEqualsFilter(AttributeFilter):
-        
-        def __init__(self, value):
-            super().__init__(operator.le, value)
-
-        @classmethod
-        def get(cls, approach):
-            return approach.time.date()
-
-    return ()
+    if end_date is not None:
+        enddatefilter = EndDateLTEqualsFilter(operator.le, end_date)
+        filter_list.append(enddatefilter)
+    
+    return filter_list
 
 
 def limit(iterator, n=None):
@@ -158,20 +159,6 @@ def limit(iterator, n=None):
     if n == 0 or n is None:
         return iterator
     
-    #yield first (at most) 'n' values from iterator
-    #create new iterator with keyword 'yield'
+    #use itertools.islice to yield 'n' values from the iterator
 
-    #i = 0
-    #while(i < n):
-    #    try:
-    #        i+=1
-    #        yield next(iterator)
-    #    except:
-    #        break
-
-    #for index, value in enumerate(iterable):
-        #if index < n:
-            #yield value
-        #else:
-            #break
     return itertools.islice(iterator, n)
