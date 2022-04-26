@@ -143,8 +143,8 @@ def create_filters(
         flt = (DateFilter(operator.ge, start_date) and DateFilter(operator.le, end_date)) 
         filters.append(flt)
 
-    if diameter_max:
-        flt = DiameterFilter(operator.le, distance_max)
+    if distance_max:
+        flt = DistanceFilter(operator.le, distance_max)
         filters.append(flt)
 
     
