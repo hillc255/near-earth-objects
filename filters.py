@@ -18,7 +18,7 @@ You'll edit this file in Tasks 3a and 3c.
 """
 import operator
 import itertools
-
+import datetime
 
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
@@ -72,21 +72,24 @@ class AttributeFilter:
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
-
-class DateEqualsFilter(AttributeFilter):
+#class for approach date, start_date, end_date
+class DateFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         return approach.time.date()
 
-class StartDateGTEqualsFilter(AttributeFilter):
+#class for distance_min, distance_max
+class DistanceFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
-        return approach.time.date()
+        return approach.distance
 
-class EndDateLTEqualsFilter(AttributeFilter):
+
+#class for approach.neo diameter_min, diameter_max
+class DiameterFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
-        return approach.time.date()
+        return approach.neo.diameter    
 
 
 def create_filters(
@@ -127,22 +130,25 @@ def create_filters(
     """
     # TODO: Decide how you will represent your filters.
     
+    filters = []
 
-    filter_list = list()
 
-    if date is not None:
-        datefilter = DateEqualsFilter(operator.eq, date)
-        filter_list.append(datefilter)
+    if date:
+        flt = DateFilter(operator.eq, date)
+        filters.append(flt)
 
-    if start_date is not None:
-        startdatefilter = StartDateGTEqualsFilter(operator.ge, start_date)
-        filter_list.append(startdatefilter)
 
-    if end_date is not None:
-        enddatefilter = EndDateLTEqualsFilter(operator.le, end_date)
-        filter_list.append(enddatefilter)
+    if start_date and end_date:
+        #start_date <= approach.time.date() <= end_date
+        flt = (DateFilter(operator.ge, start_date) and DateFilter(operator.le, end_date)) 
+        filters.append(flt)
+
+    if diameter_max:
+        flt = DiameterFilter(operator.le, distance_max)
+        filters.append(flt)
+
     
-    return filter_list
+    return filters
 
 
 def limit(iterator, n=None):
