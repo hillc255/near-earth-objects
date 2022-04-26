@@ -23,7 +23,6 @@ import datetime
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
 
-
 class AttributeFilter:
     """A general superclass for filters on comparable attributes.
 
@@ -84,13 +83,23 @@ class DistanceFilter(AttributeFilter):
     def get(cls, approach):
         return approach.distance
 
+#class for velocity_min, velocity_max
+class VelocityFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.velocity
 
 #class for approach.neo diameter_min, diameter_max
 class DiameterFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
-        return approach.neo.diameter    
+        return approach.neo.diameter
 
+#class for approach.neo hazardous, not hazardous
+class HazardousFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.hazardous            
 
 def create_filters(
         date=None, start_date=None, end_date=None,
@@ -132,24 +141,48 @@ def create_filters(
     
     filters = []
 
-
     if date:
         flt = DateFilter(operator.eq, date)
         filters.append(flt)
 
-
-    if start_date and end_date:
+    if start_date:
         #start_date <= approach.time.date() <= end_date
-        flt = (DateFilter(operator.ge, start_date) and DateFilter(operator.le, end_date)) 
+        flt = DateFilter(operator.ge, start_date) 
         filters.append(flt)
+
+    if end_date:
+        flt = DateFilter(operator.le, end_date)
+        filters.append(flt) 
+
+    if distance_min:
+        flt = DistanceFilter(operator.ge, distance_min)
+        filters.append(flt)    
 
     if distance_max:
         flt = DistanceFilter(operator.le, distance_max)
         filters.append(flt)
 
-    
-    return filters
+    if velocity_min:
+        flt = VelocityFilter(operator.ge, velocity_min)
+        filters.append(flt)
 
+    if velocity_max:
+        flt = VelocityFilter(operator.le, velocity_max)
+        filters.append(flt)
+
+    if diameter_min:
+        flt = DiameterFilter(operator.ge, diameter_min)
+        filters.append(flt) 
+
+    if diameter_max:
+        flt = DiameterFilter(operator.le, diameter_min)
+        filters.append(flt)           
+
+    if hazardous:
+        flt = HazardousFilter(operator.eq, hazardous)
+        filters.append(flt)    
+
+    return filters
 
 def limit(iterator, n=None):
     """Produce a limited stream of values from an iterator.
