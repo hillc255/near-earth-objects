@@ -146,7 +146,6 @@ def create_filters(
         filters.append(flt)
 
     if start_date:
-        #start_date <= approach.time.date() <= end_date
         flt = DateFilter(operator.ge, start_date) 
         filters.append(flt)
 
@@ -175,10 +174,10 @@ def create_filters(
         filters.append(flt) 
 
     if diameter_max:
-        flt = DiameterFilter(operator.le, diameter_min)
+        flt = DiameterFilter(operator.le, diameter_max)
         filters.append(flt)           
 
-    if hazardous:
+    if hazardous==False:
         flt = HazardousFilter(operator.eq, hazardous)
         filters.append(flt)    
 
