@@ -179,7 +179,11 @@ def create_filters(
 
     if hazardous==False:
         flt = HazardousFilter(operator.eq, hazardous)
-        filters.append(flt)    
+        filters.append(flt) 
+
+    if hazardous==True:
+        flt = HazardousFilter(operator.eq, hazardous)
+        filters.append(flt)         
 
     return filters
 
