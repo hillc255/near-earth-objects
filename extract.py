@@ -41,11 +41,11 @@ def load_neos(neo_csv_filename):
     neo_csv_path = data_dir / neo_csv_filename
 
     #verify csv file exists
-    #if neo_csv_path.exists():
-        #print(f"File \"{neo_csv_path.absolute()}\" exists")
-    #else:
-        #print(f"File \"{neo_csv_path.absolute()}\" does not exist")
-        #raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
+    if neo_csv_path.exists():
+        print(f"File \"{neo_csv_path.absolute()}\" exists")
+    else:
+        print(f"File \"{neo_csv_path.absolute()}\" does not exist")
+        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
 
     list_neos = []
     
