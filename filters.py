@@ -141,47 +141,43 @@ def create_filters(
     
     filters = []
 
-    if date:
+    if date is not None:
         flt = DateFilter(operator.eq, date)
         filters.append(flt)
 
-    if start_date:
+    if start_date is not None:
         flt = DateFilter(operator.ge, start_date) 
         filters.append(flt)
 
-    if end_date:
+    if end_date is not None:
         flt = DateFilter(operator.le, end_date)
         filters.append(flt) 
 
-    if distance_min:
+    if distance_min is not None:
         flt = DistanceFilter(operator.ge, distance_min)
         filters.append(flt)    
 
-    if distance_max:
+    if distance_max is not None:
         flt = DistanceFilter(operator.le, distance_max)
         filters.append(flt)
 
-    if velocity_min:
+    if velocity_min is not None:
         flt = VelocityFilter(operator.ge, velocity_min)
         filters.append(flt)
 
-    if velocity_max:
+    if velocity_max is not None:
         flt = VelocityFilter(operator.le, velocity_max)
         filters.append(flt)
 
-    if diameter_min:
+    if diameter_min is not None:
         flt = DiameterFilter(operator.ge, diameter_min)
         filters.append(flt) 
 
-    if diameter_max:
+    if diameter_max is not None:
         flt = DiameterFilter(operator.le, diameter_max)
         filters.append(flt)           
 
-    if hazardous==False:
-        flt = HazardousFilter(operator.eq, hazardous)
-        filters.append(flt) 
-
-    if hazardous==True:
+    if hazardous is not None:
         flt = HazardousFilter(operator.eq, hazardous)
         filters.append(flt)         
 

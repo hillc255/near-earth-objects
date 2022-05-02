@@ -41,11 +41,11 @@ def load_neos(neo_csv_filename):
     neo_csv_path = data_dir / neo_csv_filename
 
     #verify csv file exists
-    if neo_csv_path.exists():
-        print(f"File \"{neo_csv_path.absolute()}\" exists")
-    else:
-        print(f"File \"{neo_csv_path.absolute()}\" does not exist")
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
+    #if neo_csv_path.exists():
+        #print(f"File \"{neo_csv_path.absolute()}\" exists")
+    #else:
+        #print(f"File \"{neo_csv_path.absolute()}\" does not exist")
+        #raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), neo_csv_filename)
 
     list_neos = []
     
@@ -83,11 +83,11 @@ def load_approaches(cad_json_filename):
     cad_json_path = data_dir / cad_json_filename
         
     #verify json file exists
-    if cad_json_path.exists():
-        print(f"File \"{cad_json_path.absolute()}\" exists")
-    else:
-        print("File \"cad.json_path.absolute()}\" does not exist")
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), cad_json_filename)
+    #if cad_json_path.exists():
+        #print(f"File \"{cad_json_path.absolute()}\" exists")
+   # else:
+        #print("File \"cad.json_path.absolute()}\" does not exist")
+        #raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), cad_json_filename)
 
     cad_data = []
     with open(cad_json_path, 'r') as json_data:
@@ -109,6 +109,6 @@ def load_approaches(cad_json_filename):
     return cad_data
 
 #added to run file
-if __name__ == "__main__":
-    load_neos(neos_csv_path)
-    load_approaches(cad_json_path)
+#if __name__ == "__main__":
+    #load_neos(neos_csv_path)
+    #load_approaches(cad_json_path)

@@ -142,7 +142,7 @@ class CloseApproach:
 
     @property
     def designation(self):
-        return _designation
+        return self._designation
 
     @property
     def time_str(self):
