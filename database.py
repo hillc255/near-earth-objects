@@ -11,8 +11,6 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 
 You'll edit this file in Tasks 2 and 3.
 """
-
-
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
 
@@ -42,7 +40,6 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
     
-
         # TODO: What additional auxiliary data structures will be useful?
 
         #add empty dictionaries for neo.designation and neo.name for mapping
@@ -67,11 +64,8 @@ class NEODatabase:
   
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
-
         If no match is found, return `None` instead.
-
         Each NEO in the data set has a unique primary designation, as a string.
-
         The matching is exact - check for spelling and capitalization if no
         match is found.
 
@@ -120,24 +114,18 @@ class NEODatabase:
         :return: A stream of matching `CloseApproach` objects.
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
-        for approach in self._approaches:
-            
+        for approach in self._approaches:   
             is_matched = True
-
             #check each filter in collection
-            for filter in filters:
-                
+            for filter in filters:   
                 #no arguments provided
                 if not filter(approach):
-
                     #filter failed
                     is_matched = False
-
                     #end that filter search
                     break
 
             #all filters succeeded for that approach object
             if is_matched:
-
                 #sequence of approach values for generator function
                 yield approach
