@@ -15,31 +15,31 @@ import json
 
 from helpers import datetime_to_str
 
-def write_to_csv(results, filename, delimiter = ","):
+
+def write_to_csv(results, filename, delimiter=","):
+
     """Write an iterable of `CloseApproach` objects to a CSV file.
 
-    The precise output specification is in `README.md`. Roughly, each output row
-    corresponds to the information in a single close approach from the `results`
-    stream and its associated near-Earth object.
+    The precise output specification is in `README.md`. Roughly, each
+    outputrow corresponds to the information in a single close approach
+    from the `results` stream and its associated near-Earth object.
 
     :param results: An iterable of `CloseApproach` objects.
-    :param filename: A Path-like object pointing to where the data should be saved.
+    :param filename: A Path-like object pointing to where the data should
+                     be saved.
     """
     fieldnames = (
         'datetime_utc', 'distance_au', 'velocity_km_s',
         'designation', 'name', 'diameter_km', 'potentially_hazardous'
     )
 
-    # TODO: Write the results to a CSV file, following the specification in the 
-    # instructions.
-
     with open(filename, 'w', encoding='UTF8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames = fieldnames, delimiter = ',', 
-            lineterminator='\n')
-        
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=',',
+                                lineterminator='\n')
+
         # write header into file first
         writer.writeheader()
-   
+
         # iterate through results and add to output row
         for result in results:
             row_dict = {}
@@ -53,40 +53,40 @@ def write_to_csv(results, filename, delimiter = ","):
             row_dict['potentially_hazardous'] = result.neo.hazardous
 
             writer.writerow(row_dict)
- 
-def write_to_json(results, filename):
-    """Write an iterable of `CloseApproach` objects to a JSON file.
 
-    The precise output specification is in `README.md`. Roughly, the output is a
-    list containing dictionaries, each mapping `CloseApproach` attributes to
-    their values and the 'neo' key mapping to a dictionary of the associated
+
+def write_to_json(results, filename):
+
+    """Write an iterable of `CloseApproach` objects to a JSON file.
+    The precise output specification is in `README.md`. Roughly, the output
+    is a list containing dictionaries, each mapping `CloseApproach` attributes
+    to their values and the 'neo' key mapping to a dictionary of the associated
     NEO's attributes.
 
     :param results: An iterable of `CloseApproach` objects.
-    :param filename: A Path-like object pointing to where the data should be saved.
+    :param filename: A Path-like object pointing to where the data should be
+                     saved.
     """
-    # TODO: Write the results to a JSON file, following the specification in the 
-    # instructions.
-    
-    #opening file to where data should be saved
-    with open(filename, 'w') as f: 
-        #list to capture iteration
+
+    # opening file to where data should be saved
+    with open(filename, 'w') as f:
+        # list to capture iteration
         ouput = []
-        #iteration through the results
+        # iteration through the results
         for result in results:
-            #dict is dictionary serializing approaches
-            #with embedded dictionary serialized neo
+            # dict is dictionary serializing approaches
+            # with embedded dictionary serialized neo
             results_dict = dict(
-                datetime_utc=datetime_to_str(result.time), 
+                datetime_utc=datetime_to_str(result.time),
                 distance_au=result.distance,
-                velocity_km_s=result.velocity, 
+                velocity_km_s=result.velocity,
                 neo={
-                "designation": result.neo.designation,
-                "name": result.neo.name,
-                "diameter_km": result.neo.diameter,
-                "potentially_hazardous": result.neo.hazardous
+                    "designation": result.neo.designation,
+                    "name": result.neo.name,
+                    "diameter_km": result.neo.diameter,
+                    "potentially_hazardous": result.neo.hazardous
                 }
             )
             ouput.append(results_dict)
-        #write iterated output to file f
+        # write iterated output to file f
         json.dump(ouput, f, indent=2)
