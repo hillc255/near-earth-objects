@@ -10,8 +10,6 @@ formatted as described in the project instructions, into a collection of
 
 The main module calls these functions with the arguments provided at the
 command line, and uses the resulting collections to build an `NEODatabase`.
-
-You'll edit this file in Task 2.
 """
 import os
 import csv
@@ -64,7 +62,6 @@ def load_neos(neo_csv_filename):
             )
             list_neos.append(neo)
 
-    # TODO: Load NEO data from the given CSV file.
     return list_neos
 
 
@@ -75,7 +72,6 @@ def load_approaches(cad_json_filename):
                           approaches.
     :return: A collection of `CloseApproach`es.
     """
-    # TODO: Load close approach data from the given JSON file.
 
     # bring global variable into function
     global data_dir
