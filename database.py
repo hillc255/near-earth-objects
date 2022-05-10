@@ -1,4 +1,4 @@
-"""Database encapsulating collections of near-Earth objects and close approaches.
+"""Database encapsulating collections of near-Earth objects & close approaches.
 
 A `NEODatabase` holds an interconnected data set of NEOs and close approaches.
 It provides methods to fetch an NEO by primary designation or by name, as well
@@ -63,7 +63,7 @@ class NEODatabase:
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
-        
+
         If no match is found, return `None` instead.
         Each NEO in the data set has a unique primary designation, as a string.
         The matching is exact - check for spelling and capitalization if no
