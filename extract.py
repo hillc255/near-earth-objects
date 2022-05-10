@@ -1,5 +1,4 @@
-"""Extract data on near-Earth objects and close approaches from CSV and
-JSON files.
+"""Extract data on near-Earth objects and close approaches from CSV, JSON files.
 
 The `load_neos` function extracts NEO data from a CSV file, formatted as
 described in the project instructions, into a collection of `NearEarthObject`s.
@@ -72,7 +71,6 @@ def load_approaches(cad_json_filename):
                           approaches.
     :return: A collection of `CloseApproach`es.
     """
-
     # bring global variable into function
     global data_dir
 
