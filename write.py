@@ -59,7 +59,7 @@ def write_to_json(results, filename):
     is a list containing dictionaries, each mapping `CloseApproach` attributes
     to their values and the 'neo' key mapping to a dictionary of the associated
     NEO's attributes.
-
+    
     :param results: An iterable of `CloseApproach` objects.
     :param filename: A Path-like object pointing to where the data should be
     saved.
