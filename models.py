@@ -32,6 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+    
     def __init__(self, **info):
         """Create a new `NearEarthObject`.
 
@@ -45,7 +46,6 @@ class NearEarthObject:
         :param approaches: A collection of this NearEarthObjects close
                            approaches to Earth.
         """
-
         self.designation = info.get("designation")
         self.name = info.get("name")
         self.diameter = info.get("diameter")
@@ -70,13 +70,11 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-
         return f'{self.designation} ({self.name})' if self.name else \
             f'{self.designation}'
 
     def __str__(self):
         """Return `str(self)`."""
-
         if self.hazardous is True:
             neo_hazard = 'is'
         else:
@@ -85,8 +83,7 @@ class NearEarthObject:
             f"{self.diameter} km and {neo_hazard} potentially hazardous."
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-        this object."""
+        """Return `repr(self)`, a computer-readable string representation."""
         return f"NearEarthObject(designation={self.designation!r}, "\
             f"name={self.name!r}, diameter={self.diameter:.3f}, "\
             f"hazardous={self.hazardous!r})"
@@ -142,23 +139,21 @@ class CloseApproach:
 
     @property
     def designation(self):
+        """Return designation property."""
         return self._designation
 
     @property
     def time_str(self):
-        """Return a formatted representation of this `CloseApproach`'s
-        approach time.
+        """Return formatted representation of `CloseApproach`'s approach time.
 
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default
         representation includes seconds - significant figures that don't exist
         in our input data set.
-
         The `datetime_to_str` method converts a `datetime` object to a
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-
         if self.time:
             return datetime_to_str(self.time)
         return "unknown approach time"
@@ -167,14 +162,12 @@ class CloseApproach:
 
     def __str__(self):
         """Return `str(self)`."""
-
         return f"A CloseApproach at {self.time_str}, {self.neo.fullname} "\
             f"approaches Earth at a distance of {self.distance} au and a "\
             f"velocity of {self.velocity} km/s."
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-        this object."""
+        """Return `repr(self)`, computer-readable string representation."""
         return f"CloseApproach(time={self.time_str!r}, "\
                f"distance={self.distance:.2f}, "\
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
