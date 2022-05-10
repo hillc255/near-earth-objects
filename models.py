@@ -32,7 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    
+
     def __init__(self, **info):
         """Create a new `NearEarthObject`.
 
