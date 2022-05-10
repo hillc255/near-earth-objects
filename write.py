@@ -54,6 +54,7 @@ def write_to_csv(results, filename, delimiter=","):
 
 def write_to_json(results, filename):  
     """Write an iterable of `CloseApproach` objects to a JSON file.
+    
     The precise output specification is in `README.md`. Roughly, the output
     is a list containing dictionaries, each mapping `CloseApproach` attributes
     to their values and the 'neo' key mapping to a dictionary of the associated
